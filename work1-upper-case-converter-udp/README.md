@@ -41,27 +41,44 @@ Resumindo, o endereço IP do servidor no exemplo é `xxx.yyy.zzz.vvv`, que pode 
 inet xxx.yyy.zzz.vvv/24 brd xxx.yyy.zzz.255 scope global dynamic noprefixroute wlp12s0
 ```
 
-## Configuração do Servidor
+Configuração do Servidor
 
-1. Abra um terminal na máquina que você deseja usar como servidor.
-2. Navegue até o diretório do projeto.
-3. Verifique e configure o firewall:
+    Abra um terminal na máquina que você deseja usar como servidor.
 
-    - **Firewall do Servidor:** Certifique-se de que o firewall no servidor permite conexões na porta usada pela aplicação. Se estiver usando `ufw` no Ubuntu, você pode permitir a porta com o comando:
-    
-    ```bash
-    sudo ufw allow 9999/udp
-    ```
+    Navegue até o diretório do projeto.
 
-    - **Firewall de Rede:** Se houver um firewall de rede ou de hardware, configure-o para permitir tráfego na porta necessária.
+    Verifique e configure o firewall:
+        Firewall do Servidor: Certifique-se de que o firewall no servidor permite conexões na porta usada pela aplicação. Se estiver usando ufw no Ubuntu, você pode permitir a porta com o comando:
 
-4. Execute o servidor com o comando:
+    bash
 
-```bash
+sudo ufw allow 9999/udp
+
+    Firewall de Rede: Se houver um firewall de rede ou de hardware, configure-o para permitir tráfego na porta necessária.
+
+Teste Localmente:
+
+Verifique se o servidor e o cliente estão na mesma rede e se o servidor pode se comunicar com ele mesmo. Tente usar o comando netcat (ou nc) para testar a comunicação na mesma porta:
+
+No Servidor:
+
+bash
+
+nc -ul 9999
+
+No Cliente:
+
+bash
+
+echo "test message" | nc -u xxx.yyy.zzz.vvv 9999
+
+Execute o servidor com o comando:
+
+bash
+
 python3 upper_case_server_UDP.py
-```
 
-Você deve ver a mensagem `Server is on!`.
+Você deve ver a mensagem Server is on!.
 
 ### Código do Servidor
 
