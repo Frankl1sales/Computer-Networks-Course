@@ -41,44 +41,43 @@ Resumindo, o endereço IP do servidor no exemplo é `xxx.yyy.zzz.vvv`, que pode 
 inet xxx.yyy.zzz.vvv/24 brd xxx.yyy.zzz.255 scope global dynamic noprefixroute wlp12s0
 ```
 
-Configuração do Servidor
+## Configuração do Servidor
 
-    Abra um terminal na máquina que você deseja usar como servidor.
+1. Abra um terminal na máquina que você deseja usar como servidor.
+2. Navegue até o diretório do projeto.
+3. Verifique e configure o firewall:
 
-    Navegue até o diretório do projeto.
+    - **Firewall do Servidor:** Certifique-se de que o firewall no servidor permite conexões na porta usada pela aplicação. Se estiver usando `ufw` no Ubuntu, você pode permitir a porta com o comando:
+    
+    ```bash
+    sudo ufw allow 9999/udp
+    ```
 
-    Verifique e configure o firewall:
-        Firewall do Servidor: Certifique-se de que o firewall no servidor permite conexões na porta usada pela aplicação. Se estiver usando ufw no Ubuntu, você pode permitir a porta com o comando:
+    - **Firewall de Rede:** Se houver um firewall de rede ou de hardware, configure-o para permitir tráfego na porta necessária.
 
-    bash
-
-sudo ufw allow 9999/udp
-
-    Firewall de Rede: Se houver um firewall de rede ou de hardware, configure-o para permitir tráfego na porta necessária.
-
-Teste Localmente:
+4. Teste Localmente
 
 Verifique se o servidor e o cliente estão na mesma rede e se o servidor pode se comunicar com ele mesmo. Tente usar o comando netcat (ou nc) para testar a comunicação na mesma porta:
 
 No Servidor:
 
-bash
-
+```bash
 nc -ul 9999
+```
 
 No Cliente:
 
-bash
-
+```bash
 echo "test message" | nc -u xxx.yyy.zzz.vvv 9999
+```
 
-Execute o servidor com o comando:
+4. Execute o servidor com o comando:
 
-bash
-
+```bash
 python3 upper_case_server_UDP.py
+```
 
-Você deve ver a mensagem Server is on!.
+Você deve ver a mensagem `Server is on!`.
 
 ### Código do Servidor
 
@@ -102,8 +101,6 @@ python3 upper_case_client_UDP.py
 ### Código do Cliente
 
 ```python
-from socket import *
-
 serverIP = 'xxx.yyy.zzz.vvv'  # Endereço IP do servidor
 serverPort = 9999  # Porta do servidor
 ```
@@ -120,7 +117,7 @@ serverPort = 9999  # Porta do servidor
 - **Ping entre máquinas:** Verifique se as máquinas conseguem se comunicar usando o comando `ping`:
 
 ```bash
-ping [IP_do_servidor]
+ping xxx.yyy.zzz.vvv
 ```
 
 - **Endereços IP corretos:** Certifique-se de que o endereço IP do servidor no código do cliente está correto.
@@ -152,4 +149,4 @@ Seguem as tarefas que devem ser realizadas com base nos códigos disponibilizado
 
 2) Depois de testar com UDP, faça modificações no código para que a aplicação funcione com o protocolo TCP.
 
-3) Com base nesta aplicação, crie uma nova aplicação que realize a conversão de caixa baixa para caixa alta e vice-versa. Para isso, crie um protocolo simples para indicar o tipo de mensagem que o cliente envia ao servidor (por exemplo, "CA <texto>" é uma mensagem do tipo caixa alta que deve ser convertida para caixa baixa no servidor, e "CB <texto>" é uma mensagem do tipo caixa baixa que deve ser convertida para caixa alta). O servidor deve ser capaz de identificar o tipo de mensagem, realizar a operação correta  e responder o texto convertido. Esta aplicação deve usar TCP como protocolo de transporte.
+3) Com base nesta aplicação, crie uma nova aplicação que realize a conversão de caixa baixa para caixa alta e vice-versa. Para isso, crie um protocolo simples para indicar o tipo de mensagem que o cliente envia ao servidor (por exemplo, "CA <texto>" é uma mensagem do tipo caixa alta que deve ser convertida para caixa baixa no servidor, e "CB <texto>" é uma mensagem do tipo caixa baixa que deve ser convertida para caixa alta). O servidor deve ser capaz de identificar o tipo de mensagem, realizar a operação correta e responder o texto convertido. Esta aplicação deve usar TCP como protocolo de transporte.
