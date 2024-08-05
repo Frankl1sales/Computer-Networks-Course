@@ -21,6 +21,26 @@ ip a
 
 Anote o endereço IP da interface de rede que está em uso (não `127.0.0.1`).
 
+#### Passos Detalhados:
+
+1. **Execute o comando:**
+   ```bash
+   ip a
+   ```
+
+2. **Procure a interface de rede ativa:**
+   - No exemplo fornecido, a interface de rede `wlp12s0` está ativa (`state UP`).
+   - A interface ativa normalmente tem a descrição `BROADCAST,MULTICAST,UP,LOWER_UP`.
+
+3. **Encontre o endereço IP:**
+   - Sob a interface `wlp12s0`, procure a linha que começa com `inet`.
+   - O endereço IP está listado após `inet`. No exemplo, o endereço IP é `xxx.yyy.zzz.vvv`.
+
+Resumindo, o endereço IP do servidor no exemplo é `xxx.yyy.zzz.vvv`, que pode ser encontrado na linha:
+```plaintext
+inet xxx.yyy.zzz.vvv/24 brd xxx.yyy.zzz.255 scope global dynamic noprefixroute wlp12s0
+```
+
 ## Configuração do Servidor
 
 1. Abra um terminal na máquina que você deseja usar como servidor.
