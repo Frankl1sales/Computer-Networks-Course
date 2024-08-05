@@ -46,22 +46,8 @@ Você deve ver a mensagem `Server is on!`.
 ### Código do Servidor
 
 ```python
-from socket import *
-
-serverIP = '192.168.182.212'  # Endereço IP do servidor
+serverIP = '0.0.0.0'  # Aceita conexões de qualquer IP
 serverPort = 9999  # Porta do servidor
-
-serverSocket = socket(AF_INET, SOCK_DGRAM)
-serverSocket.bind((serverIP, serverPort))
-
-print("Server is on!")
-
-while 1:
-    message, clientIP = serverSocket.recvfrom(1500)
-    decodedMessage = message.decode()
-    modifiedMessage = decodedMessage.upper()
-    encodedMessage = modifiedMessage.encode()
-    serverSocket.sendto(encodedMessage, clientIP)
 ```
 
 ## Configuração do Cliente
@@ -81,21 +67,8 @@ python3 upper_case_client_UDP.py
 ```python
 from socket import *
 
-serverIP = '192.168.182.212'  # Endereço IP do servidor
+serverIP = 'xxx.yyy.zzz.vvv'  # Endereço IP do servidor
 serverPort = 9999  # Porta do servidor
-
-clientSocket = socket(AF_INET, SOCK_DGRAM)
-
-message = input('Enter your lower-case word: ')
-encodedMessage = message.encode()
-clientSocket.sendto(encodedMessage, (serverIP, serverPort))
-
-modifiedMessage, serverIP = clientSocket.recvfrom(1500)
-decodedMessage = modifiedMessage.decode()
-
-print(decodedMessage)
-
-clientSocket.close()
 ```
 
 ## Testando a Aplicação
