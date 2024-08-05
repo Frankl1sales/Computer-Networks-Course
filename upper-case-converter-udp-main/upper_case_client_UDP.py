@@ -2,7 +2,7 @@
 from socket import *
 
 # Define o endereço IP do servidor. Esse deve ser o IP da máquina onde o servidor está executando.
-serverIP = '192.168.182.212'
+serverIP = 'xxx.yyy.zzz.vvv'
 
 # Define a porta na qual o servidor está escutando. Certifique-se de que esta porta corresponde à configurada no servidor.
 serverPort = 9999
